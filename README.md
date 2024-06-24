@@ -1,7 +1,7 @@
 # rest-assured-testng example project
 
 These tests are aimed to test a petstore server which runs on local docker. In order to run the tests, first you must 
-run the server, and then run the API tests.
+run the server, and then run the API tests. Test classes can be found in: `src/test/java`
 
 ### Run petstore Server
 1. Pull the petstore docker image: `docker pull swaggerapi/petstore`
@@ -15,4 +15,3 @@ the pet store server run: `docker inspect petstore-server`. You can find the IP 
 3. Run the API tests container, which also runs the tests (notice you have to provide the PETSTORE_SERVER_IP): 
 <code>docker run --name api-tester -e PETSTORE_SERVER_HOST=http://<b>PETSROTE_SERVER_IP</b> barakbensimhon1/rest-assured-testng:latest</code>
 4. When test run ends, you can see the test result in the console
-    
