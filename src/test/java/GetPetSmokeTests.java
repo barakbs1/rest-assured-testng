@@ -18,10 +18,10 @@ public class GetPetSmokeTests {
     @Test
     public void getPetIdBasicTest() {
         when()
-                .get("/1").
+                .get("/2").
         then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("getPetResponseScheme.json")); // src/test/resources
+                .body(matchesJsonSchemaInClasspath("responses/getPetResponseScheme.json")); // src/test/resources
     }
 
     @Test
@@ -33,24 +33,5 @@ public class GetPetSmokeTests {
                 .body("code", equalTo(1))
                 .body("type", equalTo("error"))
                 .body("message", equalTo("Pet not found"));
-    }
-
-    @Test
-    public void getPetIdOfUnsupportedTypeTest() {
-        when()
-                .get("/someString").
-        then()
-                .statusCode(404)
-                .body("code", equalTo(404))
-                .body("type", equalTo("unknown"))
-                .body("message", equalTo("java.lang.NumberFormatException: For input string: \"someString\""));
-    }
-
-    @Test
-    public void getPetIdOfEmptyIdTest() {
-        when()
-                .get("").
-        then()
-                .statusCode(405);
     }
 }

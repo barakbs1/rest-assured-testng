@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.*;
 
 
 public class PostPetSmokeTests {
@@ -20,7 +21,7 @@ public class PostPetSmokeTests {
 
     @Test
     public void postPetBasicTest() throws IOException {
-        String requestBody = new String(Files.readAllBytes(Paths.get("src/test/resources/postPetRequestBody.json")));
+        String requestBody = new String(Files.readAllBytes(Paths.get("src/test/resources/requests/postPetRequestBody.json")));
         given()
                 .body(requestBody)
                 .relaxedHTTPSValidation()
@@ -29,6 +30,21 @@ public class PostPetSmokeTests {
                 .post("").
         then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("postPetResponseScheme.json")); // src/test/resources
+                .body(matchesJsonSchemaInClasspath("responses/postPetResponseScheme.json")); // src/test/resources
+    }
+
+    @Test
+    public void postPetEmptyBodyTest() {
+        given()
+                .body("")
+                .relaxedHTTPSValidation()
+                .contentType("application/json").
+        when()
+                .post("").
+        then()
+                .statusCode(405)
+                .body("code", equalTo(405))
+                .body("type", equalTo("unknown"))
+                .body("message", equalTo("no data"));
     }
 }
