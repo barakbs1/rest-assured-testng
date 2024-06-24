@@ -11,12 +11,13 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.*;
 
 
-public class PostPetSmokeTests {
+public class PostPetSmokeTests extends BaseAPI{
 
     @BeforeClass
     public void setup() {
-        RestAssured.baseURI = "http://localhost:8080";
-        RestAssured.basePath = "/v3/pet";
+        RestAssured.baseURI = this.baseURI;
+        RestAssured.port = this.port;
+        RestAssured.basePath = this.basePath;
     }
 
     @Test

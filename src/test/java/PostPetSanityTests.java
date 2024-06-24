@@ -11,12 +11,13 @@ import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.*;
 
 
-public class PostPetSanityTests {
+public class PostPetSanityTests extends BaseAPI {
 
     @BeforeClass
     public void setup() {
-        RestAssured.baseURI = "http://localhost:8080";
-        RestAssured.basePath = "/v3/pet";
+        RestAssured.baseURI = this.baseURI;
+        RestAssured.port = this.port;
+        RestAssured.basePath = this.basePath;
     }
 
 

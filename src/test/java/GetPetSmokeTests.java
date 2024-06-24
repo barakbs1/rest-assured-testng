@@ -7,12 +7,13 @@ import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class GetPetSmokeTests {
+public class GetPetSmokeTests extends BaseAPI {
 
     @BeforeClass
     public void setup() {
-        RestAssured.baseURI = "http://localhost:8080";
-        RestAssured.basePath = "/v3/pet";
+        RestAssured.baseURI = this.baseURI;
+        RestAssured.port = this.port;
+        RestAssured.basePath = this.basePath;
     }
 
     @Test

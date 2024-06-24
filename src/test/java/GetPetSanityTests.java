@@ -3,23 +3,23 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.when;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 
 
-public class GetPetSanityTests {
+public class GetPetSanityTests extends BaseAPI {
 
     @BeforeClass
     public void setup() {
-        RestAssured.baseURI = "http://localhost:8080";
-        RestAssured.basePath = "/v3/pet";
+        RestAssured.baseURI = this.baseURI;
+        RestAssured.port = this.port;
+        RestAssured.basePath = this.basePath;
     }
 
     @Test
     public void getPetIdOfUnsupportedTypeTest() {
         when()
                 .get("/someString").
-                then()
+        then()
                 .statusCode(404)
                 .body("code", equalTo(404))
                 .body("type", equalTo("unknown"))
@@ -30,7 +30,7 @@ public class GetPetSanityTests {
     public void getPetIdOfEmptyIdTest() {
         when()
                 .get("").
-                then()
+        then()
                 .statusCode(405);
     }
 }
